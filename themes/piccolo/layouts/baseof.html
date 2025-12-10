@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html
+    lang="{{ site.Language.LanguageCode }}"
+    dir="{{ or site.Language.LanguageDirection `ltr` }}"
+    x-data="combined"
+    :data-theme="night ? 'dark' : 'light'"
+>
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <header class="container">
+    {{ partial "header.html" . }}
+  </header>
+  <main class="container">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer>
+    {{ partial "footer.html" . }}
+  </footer>
+</body>
+</html>
