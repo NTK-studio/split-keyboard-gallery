@@ -17,7 +17,10 @@ var permalinkedKeys = [
 var getPermalinkedKeys = function(source) {
     var obj = {};
     for (const key of permalinkedKeys) {
-        obj[key] = source[key];
+        // check if the key is there in the source
+        if (key in source) {
+            obj[key] = source[key];
+        }
     }
     return obj;
 }
