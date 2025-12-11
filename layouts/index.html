@@ -12,7 +12,7 @@
                 </label>
             </fieldset>
 
-            <div class="grid">
+            <fieldset class="grid">
                 <label>
                     min keys: <span x-text="minKeys"></span>
                     <input type="range" min="0" max="150" x-model="minKeys" />
@@ -21,13 +21,12 @@
                     max keys: <span x-text="maxKeys"></span>
                     <input type="range" min="0" max="150" x-model="maxKeys" />
                 </label>
-            </div>
-
+            </fieldset>
         </form>
     </div>
     <div>
         <div role="group">
-            <fieldset>
+            <fieldset class="bordered required">
               <legend>Required Features:</legend>
               <span><input type="checkbox" id="split" x-model='requiredFeatures.split' /><label for="split">Split</label></span>
                 <span><input type="checkbox" id="encoder" x-model='requiredFeatures.encoder' /><label for="encoder">Encoder</label></span>
@@ -37,7 +36,7 @@
             </fieldset>
         </div>
         <div role="group">
-            <fieldset>
+            <fieldset class="bordered considered">
               <legend>Considered Layouts:</legend>
                 <span><input type="checkbox" id="ergo" x-model='consideredLayouts.ergo' /><label for="ergo">Ergonomic</label></span>
                 <span><input type="checkbox" id="ortho" x-model='consideredLayouts.ortho' /><label for="ortho">Ortholinear</label></span>
@@ -47,7 +46,7 @@
         </div>
     </div>
     <div>
-        <fieldset>
+        <fieldset class="bordered required">
           <legend>Required Open Source:</legend>
           <label>
             <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" />
@@ -56,6 +55,8 @@
         </fieldset>
     </div>
 </div>
+
+<hr />
 
 <div class="overflow-auto">
     <table class="striped">
@@ -78,8 +79,10 @@
                     <td x-text="kb.layout"></td>
                     <td x-text="kb.keysRange"></td>
                     <td x-text="`${kb.features.join(', ')}`"></td>
-                    <td x-show="kb.openHardware">✅</td>
-                    <td x-show="!kb.openHardware">❌</td>
+                    <td :class="kb.openHardware ? 'good' : 'bad'">
+                        <i x-show="kb.openHardware" class="fa-solid fa-check good"></i>
+                        <i x-show="!kb.openHardware" class="fa-solid fa-xmark bad"></i>
+                    </td>
                     <!-- <td> -->
                     <!--     <img alt="??" :src="kb.websiteShield"> -->
                     <!-- </td> -->

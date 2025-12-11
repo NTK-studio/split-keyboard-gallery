@@ -1,4 +1,7 @@
 
+@use "@picocss/pico/scss/colors/utilities";
+@use "@picocss/pico/scss/colors" as *;
+
 nav {
   // set horizontal padding for nav
     padding: 0 30px;
@@ -7,7 +10,7 @@ nav {
 
 fieldset legend {
     // set a nice contrasting color for the text
-    color: green;
+    // color: green;
     font-weight: bold;
 }
 
@@ -49,4 +52,35 @@ fieldset span {
   margin-right: 15px;
   display: inline-block;
   // white-space: pre-wrap;
+}
+
+nav.topnav li {
+  padding-bottom: 0;
+}
+
+fieldset.bordered {
+  border: 1px solid var(--pico-muted-border-color);
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+fieldset legend {
+  margin-bottom: 0px;
+}
+
+
+td.good {
+  color: $green-450;
+}
+
+td.bad {
+  color: $red-450;
+}
+
+fieldset.required input[type="checkbox"]:checked + label, fieldset.required label:has(input[type="checkbox"]:checked) {
+  color: $green-450;
+}
+
+fieldset.considered input[type="checkbox"]:not(:checked) + label, fieldset.considered label:has(input[type="checkbox"]:not(:checked)) {
+  color: $red-450;
 }

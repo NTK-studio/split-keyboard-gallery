@@ -2,4 +2,8 @@
   $theme-color: "violet"
 );
 
+
+@use "@picocss/pico/scss/colors/utilities";
+@use "@picocss/pico/scss/colors" as *;
+
 @use "custom"

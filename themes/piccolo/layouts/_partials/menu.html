@@ -11,20 +11,16 @@ Renders a menu for the given menu ID.
 {{- $menuID := .menuID }}
 
 {{- with index site.Menus $menuID }}
-<nav>
-      <ul>
-        <li><h3>{{ site.Title}}</h3></li>
-      </ul>
-    <ul>
-      {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
-    </ul>
-  </nav>
+  {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
 {{- end }}
 
 {{- define "_partials/inline/menu/walk.html" }}
   {{- $page := .page }}
   {{- range .menuEntries }}
     {{- $attrs := dict "href" .URL }}
+    {{- if strings.HasPrefix .URL "http" }}
+      {{- $attrs = merge $attrs (dict "target" "_blank") }}
+    {{- end }}
     {{- if $page.IsMenuCurrent .Menu . }}
       {{- $attrs = merge $attrs (dict "class" "active" "aria-current" "page") }}
     {{- else if $page.HasMenuCurrent .Menu .}}
@@ -51,8 +47,4 @@ Renders a menu for the given menu ID.
       {{- end }}
     </li>
   {{- end }}
-<li>
-<input id="night_mode" type="checkbox" role="switch" x-model="night" />
-<label for="night_mode" x-text="theme()"></label>
-</li>
 {{- end }}

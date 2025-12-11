@@ -14,16 +14,11 @@ target = 'assets'
 
 [menus]
   [[menus.main]]
-    name = 'Home'
+    name = 'Table View'
     pageRef = '/'
     weight = 10
 
-  # [[menus.main]]
-  #   name = 'Posts'
-  #   pageRef = '/posts'
-  #   weight = 20
-
-  # [[menus.main]]
-  #   name = 'Tags'
-  #   pageRef = '/tags'
-  #   weight = 30
+  [[menus.right]]
+    name = 'GitHub'
+    URL = 'https://github.com/NTK-studio/split-keyboard-gallery'
+    weight = 20

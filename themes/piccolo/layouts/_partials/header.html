@@ -1,2 +1,25 @@
 <!-- <h1>{{ site.Title }}</h1> -->
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+<nav class="topnav">
+  <ul>
+    <li><h4>{{ site.Title}}</h4></li>
+  </ul>
+  <ul>
+    <li>
+        <input id="night_mode" type="checkbox" role="switch" x-model="night" />
+
+        <label for="night_mode">
+            <i x-show="night" class="fa-solid fa-moon"></i>
+            <i x-show="!night" class="fa-solid fa-sun"></i>
+        </label>
+    </li>
+  </ul>
+</nav>
+
+<nav>
+    <ul>
+        {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+    </ul>
+    <ul>
+        {{ partial "menu.html" (dict "menuID" "right" "page" .) }}
+    </ul>
+</nav>
