@@ -12,6 +12,9 @@ home = ["HTML"]
 source = 'assets'
 target = 'assets'
 
+  [[module.imports]]
+    path = 'github.com/gethugothemes/hugo-modules/seo-tools/basic-seo'
+
 [menus]
   [[menus.main]]
     name = 'Table View'
@@ -37,3 +40,4 @@ target = 'assets'
     name = 'GitHub'
     URL = 'https://github.com/NTK-studio/split-keyboard-gallery'
     weight = 20
+
