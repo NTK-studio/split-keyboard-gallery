@@ -62,10 +62,10 @@
         <thead>
             <tr>
                 <th scope="col"><span x-text="resultCount"></span> results</th>
-                <th scope="col" width="120">Name</th>
-                <th scope="col">Layout</th>
-                <th scope="col">Keys</th>
-                <th scope="col">Features</th>
+                <th scope="col" width="120">Name {{ partial "sort-icon.html" "name" }}</th>
+                <th scope="col">Layout {{ partial "sort-icon.html" "layout" }}</th>
+                <th scope="col">Keys{{ partial "sort-icon.html" "keys" }}</th>
+                <th scope="col">Features {{ partial "sort-icon.html" "featuresCount" }}</th>
                 <th scope="col">GitHub?</th>
                 <!-- <th scope="col">Website</th> -->
             </tr>

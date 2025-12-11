@@ -22,6 +22,25 @@ var mapKeyboard = function(keyboard) {
     }
 }
 
+var keyboardData = window.sourceKeyboardData.map(mapKeyboard);
+var minKeys = Math.min(...keyboardData.map(kb => kb.minKeys));
+var maxKeys = Math.max(...keyboardData.map(kb => kb.maxKeys));
+
+console.log(`Minimum keys across all keyboards: ${minKeys}`);
+
+var actualSortValue = function(keyboard, sortedBy, sortedDir) {
+    if (sortedBy === 'featuresCount') {
+        return keyboard.features.length;
+    }
+    if (sortedBy === 'keys' && sortedDir > 0) {
+        return keyboard.minKeys;
+    }
+    if (sortedBy === 'keys' && sortedDir < 0) {
+        return keyboard.maxKeys;
+    }
+    return keyboard[sortedBy];
+}
+
 
 document.addEventListener('alpine:init', () => {
     console.log('Alpine is initializing...');
@@ -35,6 +54,16 @@ document.addEventListener('alpine:init', () => {
             display: false,
             wireless: false,
         },
+        sortedBy: 'name',
+        sortedDir: 1,
+        sortBy(field) {
+            if (this.sortedBy === field) {
+                this.sortedDir = this.sortedDir * -1;
+            } else {
+                this.sortedBy = field;
+                this.sortedDir = 1;
+            }
+        },
         consideredLayouts: {
             ergo: true,
             ortho: true,
@@ -42,13 +71,13 @@ document.addEventListener('alpine:init', () => {
             other: false,
         },
         openHardwareOnly: false,
-        minKeys: 0,
-        maxKeys: 150,
+        minKeys: minKeys,
+        maxKeys: maxKeys,
         night: Alpine.$persist(true),
         theme() {
             return this.night ? '🌒' : '🌤';
         },
-        keyboardData: window.sourceKeyboardData.map(mapKeyboard),
+        keyboardData: keyboardData,
         filteredData() {
             var ret = this.keyboardData;
 
@@ -75,8 +104,24 @@ document.addEventListener('alpine:init', () => {
                 ret = ret.filter(keyboard => keyboard.openHardware);
             }
 
+            ret = ret.sort((a, b) => {
+                let valA = actualSortValue(a, this.sortedBy, this.sortedDir);
+                let valB = actualSortValue(b, this.sortedBy, this.sortedDir);
 
-            console.log(ret);
+                if (typeof valA === 'string') {
+                    valA = valA.toLowerCase();
+                    valB = valB.toLowerCase();
+                }
+
+                if (valA < valB) {
+                    return -1 * this.sortedDir;
+                } else if (valA > valB) {
+                    return 1 * this.sortedDir;
+                } else {
+                    return 0;
+                }
+            });
+
             return ret;
         },
         resultCount() {

@@ -1,0 +1,6 @@
+{{ $field := . }}
+<a href="#" @click.stop="sortBy('{{ $field | safeJSStr }}')">
+    <i x-show="sortedBy != '{{ $field | safeJSStr }}'" class="fa-solid fa-sort"></i>
+    <i x-show="sortedBy == '{{ $field | safeJSStr }}' && sortedDir < 0" class="fa-solid fa-sort-down"></i>
+    <i x-show="sortedBy == '{{ $field | safeJSStr }}' && sortedDir > 0" class="fa-solid fa-sort-up"></i>
+</a>
