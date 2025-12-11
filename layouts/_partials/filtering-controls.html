@@ -44,7 +44,9 @@
             <legend>Features:</legend>
             <button :class="filterClass(features.split)" @click="toggleFeature('split')">Split</button>
             <button :class="filterClass(features.encoder)" @click="toggleFeature('encoder')">Encoder</button>
-            <button :class="filterClass(features.track)" @click="toggleFeature('track')">Track</button>
+            <button :class="filterClass(features.track)" @click="toggleFeature('track')"
+                data-tooltip="Trackball, trackpoint, touchpad, etc. A pointing device."
+            >Track</button>
             <button :class="filterClass(features.display)" @click="toggleFeature('display')">Display</button>
             <button :class="filterClass(features.wireless)" @click="toggleFeature('wireless')">Wireless</button>
         </fieldset>
