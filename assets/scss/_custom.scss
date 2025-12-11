@@ -128,3 +128,34 @@ fieldset.grid {
     margin-bottom: 0;
 }
 
+
+
+.gallery_item {
+    // move items to the top
+    vertical-align: top;
+    width: 320px;
+    height: 320px;
+    padding-left: 5;
+    padding-right: 5;
+    display: inline-block;
+    background-color: var(--pico-code-background-color);
+    margin: 5px;
+}
+
+.gallery_item div.image_container {
+    width: 320px;
+}
+
+.gallery_item > header {
+    height: 40px;
+    text-align: center;
+    margin-bottom: 0;
+    display: block;
+}
+
+.gallery_item > footer {
+    // have it fill out the remaining height
+    margin-top: 0;
+    display: block;
+    height: auto;
+}

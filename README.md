@@ -8,6 +8,15 @@ This is an interactive gallery of split (and other) keyboards, visible at https:
 
 See [about](https://splitkeyboard.gallery/) for more details.
 
+## TODO
+
+- [x] gallery page
+- [ ] permalinks
+- [ ] separate links to: electronics, case, product page
+- [ ] toggle to make the content take full width
+- [ ] find missing images
+- [ ] plausible
+
 ## Contributions
 
 Issues and pull requests to correct mistakes or add missing keyboards are welcome.

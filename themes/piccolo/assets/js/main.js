@@ -31,6 +31,7 @@ var mapKeyboard = function(keyboard) {
         layout: (layouts.includes(keyboard.Layout)) ? keyboard.Layout : 'other',
         imageUrl: keyboard.ImageUrl,
         thumbUrl: keyboard.ThumbUrl,
+        bigThumbUrl: keyboard.BigThumbUrl,
     }
 }
 

@@ -1,0 +1,60 @@
+<div class="grid">
+    <div>
+        <form id="filterer" action="#" @submit.prevent="">
+            <fieldset>
+                <label>filter by name
+                    <div role="search">
+                        <input type="search" placeholder="filter..." x-model="nameFilter" />
+                        <input type="reset" value="clear" @click.prevent="nameFilter = ''" />
+                    </div>
+                </label>
+            </fieldset>
+
+            <fieldset class="grid">
+                <label>
+                    min keys: <span x-text="minKeys"></span>
+                    <input type="range" min="0" max="150" x-model="minKeys" />
+                </label>
+                <label>
+                    max keys: <span x-text="maxKeys"></span>
+                    <input type="range" min="0" max="150" x-model="maxKeys" />
+                </label>
+            </fieldset>
+            <fieldset class="bordered">
+              <legend>Required Open Source:</legend>
+              <label>
+                <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" />
+                    hardware
+              </label>
+            </fieldset>
+
+
+        </form>
+    </div>
+    <div>
+        <fieldset class="bordered">
+          <legend>Layouts:</legend>
+            <button :class="filterClass(layouts.ergo)" @click="toggleLayout('ergo')">Ergonomic</button>
+            <button :class="filterClass(layouts.dish)" @click="toggleLayout('dish')">Dished</button>
+            <button :class="filterClass(layouts.ortho)" @click="toggleLayout('ortho')">Ortholinear</button>
+            <button :class="filterClass(layouts.traditional)" @click="toggleLayout('traditional')">Traditional</button>
+            <button :class="filterClass(layouts.other)" @click="toggleLayout('other')">Other</button>
+        </fieldset>
+        <fieldset class="bordered">
+            <legend>Features:</legend>
+            <button :class="filterClass(features.split)" @click="toggleFeature('split')">Split</button>
+            <button :class="filterClass(features.encoder)" @click="toggleFeature('encoder')">Encoder</button>
+            <button :class="filterClass(features.track)" @click="toggleFeature('track')">Track</button>
+            <button :class="filterClass(features.display)" @click="toggleFeature('display')">Display</button>
+            <button :class="filterClass(features.wireless)" @click="toggleFeature('wireless')">Wireless</button>
+        </fieldset>
+        <fieldset class="bordered">
+            <legend>Availability:</legend>
+            <button :class="filterClass(availability.source)" @click="toggleAvailability('source')">Source</button>
+            <button :class="filterClass(availability.kit)" @click="toggleAvailability('kit')">Kit</button>
+            <button :class="filterClass(availability.assembled)" @click="toggleAvailability('assembled')">Assembled</button>
+            <button :class="filterClass(availability.massproduced)" @click="toggleAvailability('massproduced')">Mass Produced</button>
+            <button :class="filterClass(availability.unavailable)" @click="toggleAvailability('unavailable')">Unavailable</button>
+        </fieldset>
+    </div>
+</div>

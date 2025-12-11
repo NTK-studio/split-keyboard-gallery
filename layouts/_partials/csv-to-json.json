@@ -8,7 +8,8 @@
     {{- $image := resources.Get $imagePath }}
     {{- if $image }}
         {{- $thumb := $image.Fit "200x200" }}
-        {{- $item = merge $item (dict "ImageUrl" $image.RelPermalink "ThumbUrl" $thumb.RelPermalink) }}
+        {{- $bigThumb := $image.Fit "320x280" }}
+        {{- $item = merge $item (dict "ImageUrl" $image.RelPermalink "ThumbUrl" $thumb.RelPermalink "BigThumbUrl" $bigThumb.RelPermalink) }}
     {{- end }}
     {{- $modified = $modified | append $item }}
 {{- end }}

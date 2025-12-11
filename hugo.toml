@@ -19,6 +19,11 @@ target = 'assets'
     weight = 10
 
   [[menus.main]]
+    name = 'Gallery'
+    pageRef = '/gallery/'
+    weight = 15
+
+  [[menus.main]]
     name = 'About'
     pageRef = '/about'
     weight = 20

@@ -1,0 +1,28 @@
+{{ define "main" }}
+{{ partial "filtering-controls.html" . }}
+
+<hr />
+
+<div>
+    <template x-for="kb in filteredData()">
+        <div class="gallery_item">
+            <header>
+                <strong><a :href="kb.website" x-text="kb.name" target="_blank" ></a></strong>
+            </header>
+            <div class="image_container">
+                <img class="thumb" :src="kb.bigThumbUrl" :alt="kb.name" @click="$dispatch('lightbox', kb.imageUrl)"/>
+            </div>
+            <footer>
+            </footer>
+        </div>
+    </template>
+</div>
+
+
+<div class="lightbox" x-data="{lightboxOpen: false, imgSrc: ''}" x-show="lightboxOpen" x-transition
+@lightbox.window="lightboxOpen = true; imgSrc = $event.detail; console.log($event.detail)">
+<div class="lightbox-container">
+  <img :src="imgSrc" @click="lightboxOpen = false" @click.away="lightboxOpen = false">
+</div>
+</div>
+{{ end }}
