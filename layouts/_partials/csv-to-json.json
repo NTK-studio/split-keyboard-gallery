@@ -1,0 +1,1 @@
+{{ $file := . }} {{ $opts := dict "targetType" "map" }} {{ $contents := resources.Get $file }} {{ $data := transform.Unmarshal $opts $contents }} {{ $data | jsonify | safeJS }}

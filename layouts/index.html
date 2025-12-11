@@ -1,3 +1,68 @@
 {{ define "main" }}
-home
+
+<div class="grid">
+    <div>
+        <form id="filterer" action="#" @submit.prevent="">
+            <fieldset>
+                <label>filter by name
+                    <div role="search">
+                        <input type="search" placeholder="filter..." x-model="nameFilter" />
+                        <input type="reset" value="clear" @click.prevent="nameFilter = ''" />
+                    </div>
+                </label>
+            </fieldset>
+
+            <div class="grid">
+                <label>
+                    min keys: <span x-text="minKeys"></span>
+                    <input type="range" min="0" max="150" x-model="minKeys" />
+                </label>
+                <label>
+                    max keys: <span x-text="maxKeys"></span>
+                    <input type="range" min="0" max="150" x-model="maxKeys" />
+                </label>
+            </div>
+
+        </form>
+    </div>
+    <div>
+        <div role="group">
+            <fieldset>
+              <legend>Required Features:</legend>
+              <input type="checkbox" id="split" x-model='requiredFeatures.split' /><label for="split">Split</label>
+              <input type="checkbox" id="encoder" x-model='requiredFeatures.encoder' /><label for="encoder">Encoder</label>
+              <input type="checkbox" id="track" x-model='requiredFeatures.track' /><label for="track">Track(ball|point)</label>
+              <input type="checkbox" id="display" x-model='requiredFeatures.display' /><label for="display">Display</label>
+              <input type="checkbox" id="wireless" x-model='requiredFeatures.wireless' /><label for="wireless">Wireless</label>
+            </fieldset>
+        </div>
+    </div>
+    <div></div>
+</div>
+
+<table class="striped">
+    <thead>
+        <tr>
+            <th scope="col"><span x-text="resultCount"></span> results</th>
+            <th scope="col">Name</th>
+            <th scope="col">Website</th>
+            <th scope="col">MinKeys</th>
+            <th scope="col">MaxKeys</th>
+            <th scope="col">Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <template x-for="kb in filteredData()">
+            <tr>
+                <td x-text="kb.name"></td>
+                <td x-text="kb.name"></td>
+                <td x-text="kb.website"></td>
+                <td x-text="kb.minKeys"></td>
+                <td x-text="kb.maxKeys"></td>
+                <td x-text="kb.note"></td>
+            </tr>
+        </template>
+    </tbody>
+</table>
+
 {{ end }}
