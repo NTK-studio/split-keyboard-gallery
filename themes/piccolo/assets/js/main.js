@@ -41,10 +41,14 @@ var readPermalink = function() {
     if (searchParams.has("permalink")) {
         var encoded = searchParams.get("permalink");
         if (typeof encoded === 'string' && encoded.length > 0) {
-            var decoded = atob(encoded);
-            parsed = JSON.parse(decoded);
-            if (typeof parsed === 'object' && parsed !== null) {
-                return getPermalinkedKeys(parsed);
+            try {
+                var decoded = atob(encoded);
+                var parsed = JSON.parse(decoded);
+                if (typeof parsed === 'object' && parsed !== null) {
+                    return getPermalinkedKeys(parsed);
+                }
+            } catch (e) {
+                console.warn('Failed to decode permalink:', e);
             }
         }
     }
