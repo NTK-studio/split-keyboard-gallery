@@ -1,1 +1,20 @@
-{{ $file := . }} {{ $opts := dict "targetType" "map" }} {{ $contents := resources.Get $file }} {{ $data := transform.Unmarshal $opts $contents }} {{ $data | jsonify | safeJS }}
+{{ $file := . }}
+{{ $opts := dict "targetType" "map" }}
+{{ $contents := resources.Get $file }}
+{{ $data := transform.Unmarshal $opts $contents }}
+{{ $modified := slice }}
+
+{{ range $item := $data }}
+    {{ $imagePath := printf "/images/keyboards/%s" (index $item "Image") }}
+    {{ $image := resources.Get $imagePath }}
+    {{ if $image }}
+        {{ $thumb := $image.Fit "200x200" }}
+        {{ $item = merge $item (dict "ImageUrl" $image.RelPermalink "ThumbUrl" $thumb.RelPermalink) }}
+
+    {{ end }}
+
+    {{ $modified = $modified | append $item }}
+
+{{ end }}
+
+{{ $modified | jsonify | safeJS }}

@@ -1,5 +1,6 @@
 
 var features = ['split', 'encoder', 'track', 'display', 'wireless'];
+var layouts = ['ergo', 'ortho', 'traditional', 'other'];
 
 
 var mapKeyboard = function(keyboard) {
@@ -8,9 +9,15 @@ var mapKeyboard = function(keyboard) {
         minKeys: parseInt(keyboard.MinKeys),
         maxKeys: parseInt(keyboard.MaxKeys),
         website: keyboard.Website,
+        websiteShield: `https://img.shields.io/website?url=${encodeURIComponent(keyboard.Website)}`,
+        openHardware: keyboard.Website.startsWith('https://github.com'),
         note: keyboard.Note,
         // TODO error out on unknown features
-        features: keyboard.Features.split(' ').filter(feature => features.includes(feature))
+        features: keyboard.Features.split(' ').filter(feature => features.includes(feature)),
+        // layout: (keyboard.Layout in layouts) ? keyboard.Layout : 'other',
+        layout: (layouts.includes(keyboard.Layout)) ? keyboard.Layout : 'other',
+        imageUrl: keyboard.ImageUrl,
+        thumbUrl: keyboard.ThumbUrl,
     }
 }
 
@@ -21,15 +28,25 @@ document.addEventListener('alpine:init', () => {
         open: false,
         nameFilter: '',
         requiredFeatures: {
-            split: false,
+            split: true,
             encoder: false,
             track: false,
             display: false,
             wireless: false,
         },
+        consideredLayouts: {
+            ergo: true,
+            ortho: true,
+            traditional: true,
+            other: false,
+        },
+        openHardwareOnly: false,
         minKeys: 0,
         maxKeys: 150,
         night: Alpine.$persist(true),
+        theme() {
+            return this.night ? 'dark' : 'light';
+        },
         keyboardData: window.sourceKeyboardData.map(mapKeyboard),
         filteredData() {
             var ret = this.keyboardData;
@@ -47,6 +64,18 @@ document.addEventListener('alpine:init', () => {
                 }
             }
 
+            for (const [layout, considered] of Object.entries(this.consideredLayouts)) {
+                if (! considered) {
+                    ret = ret.filter(keyboard => keyboard.layout !== layout);
+                }
+            }
+
+            if (this.openHardwareOnly) {
+                ret = ret.filter(keyboard => keyboard.openHardware);
+            }
+
+
+            console.log(ret);
             return ret;
         },
         resultCount() {

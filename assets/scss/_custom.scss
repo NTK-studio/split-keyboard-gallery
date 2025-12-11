@@ -5,3 +5,42 @@ nav {
 }
 
 
+fieldset legend {
+    // set a nice contrasting color for the text
+    color: green;
+    font-weight: bold;
+}
+
+.gallery {
+  display: flex;
+  gap: 1em;
+}
+
+.gallery img {
+  cursor: zoom-in;
+}
+
+img.thumb {
+  cursor: zoom-in;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-container {
+  cursor: zoom-out;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lighbox-container * {
+  max-width: 100%;
+}

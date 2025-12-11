@@ -36,8 +36,26 @@
               <input type="checkbox" id="wireless" x-model='requiredFeatures.wireless' /><label for="wireless">Wireless</label>
             </fieldset>
         </div>
+        <div role="group">
+            <fieldset>
+              <legend>Considered Layouts:</legend>
+              <input type="checkbox" id="ergo" x-model='consideredLayouts.ergo' /><label for="ergo">Ergonomic</label>
+              <input type="checkbox" id="ortho" x-model='consideredLayouts.ortho' /><label for="ortho">Ortholinear</label>
+              <br />
+              <input type="checkbox" id="traditional" x-model='consideredLayouts.traditional' /><label for="traditional">Traditional</label>
+              <input type="checkbox" id="other" x-model='consideredLayouts.other' /><label for="other">Other</label>
+            </fieldset>
+        </div>
     </div>
-    <div></div>
+    <div>
+        <fieldset>
+          <legend>Required Open Source:</legend>
+          <label>
+            <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" />
+                hardware
+          </label>
+        </fieldset>
+    </div>
 </div>
 
 <table class="striped">
@@ -45,24 +63,38 @@
         <tr>
             <th scope="col"><span x-text="resultCount"></span> results</th>
             <th scope="col">Name</th>
+            <th scope="col">Features</th>
+            <th scope="col">OpenHardware?</th>
+            <th scope="col">Layout</th>
             <th scope="col">Website</th>
             <th scope="col">MinKeys</th>
             <th scope="col">MaxKeys</th>
-            <th scope="col">Note</th>
         </tr>
     </thead>
     <tbody>
         <template x-for="kb in filteredData()">
             <tr>
-                <td x-text="kb.name"></td>
-                <td x-text="kb.name"></td>
-                <td x-text="kb.website"></td>
+                <td><img class="thumb" :src="kb.thumbUrl" :alt="kb.name" @click="$dispatch('lightbox', kb.imageUrl)"/></td>
+                <td ><a :href="kb.website" x-text="kb.name" target="_blank" ></a></td>
+                <td x-text="kb.features"></td>
+                <td x-show="kb.openHardware">✅</td>
+                <td x-show="!kb.openHardware">❌</td>
+                <td x-text="kb.layout"></td>
+                <td>
+                    <img alt="??" :src="kb.websiteShield">
+                </td>
                 <td x-text="kb.minKeys"></td>
                 <td x-text="kb.maxKeys"></td>
-                <td x-text="kb.note"></td>
             </tr>
         </template>
     </tbody>
 </table>
 
+
+<div class="lightbox" x-data="{lightboxOpen: false, imgSrc: ''}" x-show="lightboxOpen" x-transition
+@lightbox.window="lightboxOpen = true; imgSrc = $event.detail; console.log($event.detail)">
+<div class="lightbox-container">
+  <img :src="imgSrc" @click="lightboxOpen = false" @click.away="lightboxOpen = false">
+</div>
+</div>
 {{ end }}
