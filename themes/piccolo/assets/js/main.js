@@ -8,6 +8,7 @@ var mapKeyboard = function(keyboard) {
         name: keyboard.Name,
         minKeys: parseInt(keyboard.MinKeys),
         maxKeys: parseInt(keyboard.MaxKeys),
+        keysRange: (keyboard.MinKeys === keyboard.MaxKeys) ? `${keyboard.MinKeys}` : `${keyboard.MinKeys} - ${keyboard.MaxKeys}`,
         website: keyboard.Website,
         websiteShield: `https://img.shields.io/website?url=${encodeURIComponent(keyboard.Website)}`,
         openHardware: keyboard.Website.startsWith('https://github.com'),
@@ -45,7 +46,7 @@ document.addEventListener('alpine:init', () => {
         maxKeys: 150,
         night: Alpine.$persist(true),
         theme() {
-            return this.night ? 'dark' : 'light';
+            return this.night ? '🌒' : '🌤';
         },
         keyboardData: window.sourceKeyboardData.map(mapKeyboard),
         filteredData() {

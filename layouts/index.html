@@ -58,37 +58,37 @@
     </div>
 </div>
 
-<table class="striped">
-    <thead>
-        <tr>
-            <th scope="col"><span x-text="resultCount"></span> results</th>
-            <th scope="col">Name</th>
-            <th scope="col">Features</th>
-            <th scope="col">OpenHardware?</th>
-            <th scope="col">Layout</th>
-            <th scope="col">Website</th>
-            <th scope="col">MinKeys</th>
-            <th scope="col">MaxKeys</th>
-        </tr>
-    </thead>
-    <tbody>
-        <template x-for="kb in filteredData()">
+<div class="overflow-auto">
+    <table class="striped">
+        <thead>
             <tr>
-                <td><img class="thumb" :src="kb.thumbUrl" :alt="kb.name" @click="$dispatch('lightbox', kb.imageUrl)"/></td>
-                <td ><a :href="kb.website" x-text="kb.name" target="_blank" ></a></td>
-                <td x-text="kb.features"></td>
-                <td x-show="kb.openHardware">✅</td>
-                <td x-show="!kb.openHardware">❌</td>
-                <td x-text="kb.layout"></td>
-                <td>
-                    <img alt="??" :src="kb.websiteShield">
-                </td>
-                <td x-text="kb.minKeys"></td>
-                <td x-text="kb.maxKeys"></td>
+                <th scope="col"><span x-text="resultCount"></span> results</th>
+                <th scope="col" width="120">Name</th>
+                <th scope="col">Layout</th>
+                <th scope="col">Keys</th>
+                <th scope="col">Features</th>
+                <th scope="col">GitHub?</th>
+                <th scope="col">Website</th>
             </tr>
-        </template>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <template x-for="kb in filteredData()">
+                <tr>
+                    <td><img class="thumb" :src="kb.thumbUrl" :alt="kb.name" @click="$dispatch('lightbox', kb.imageUrl)"/></td>
+                    <td ><a :href="kb.website" x-text="kb.name" target="_blank" ></a></td>
+                    <td x-text="kb.layout"></td>
+                    <td x-text="kb.keysRange"></td>
+                    <td x-text="`${kb.features.join(', ')}`"></td>
+                    <td x-show="kb.openHardware">✅</td>
+                    <td x-show="!kb.openHardware">❌</td>
+                    <td>
+                        <img alt="??" :src="kb.websiteShield">
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</div>
 
 
 <div class="lightbox" x-data="{lightboxOpen: false, imgSrc: ''}" x-show="lightboxOpen" x-transition
