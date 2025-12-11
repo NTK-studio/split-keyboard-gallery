@@ -1,0 +1,100 @@
+{{ define "main" }}
+
+<div class="grid">
+    <div>
+        <form id="filterer" action="#" @submit.prevent="">
+            <fieldset>
+                <label>filter by name
+                    <div role="search">
+                        <input type="search" placeholder="filter..." x-model="nameFilter" />
+                        <input type="reset" value="clear" @click.prevent="nameFilter = ''" />
+                    </div>
+                </label>
+            </fieldset>
+
+            <div class="grid">
+                <label>
+                    min keys: <span x-text="minKeys"></span>
+                    <input type="range" min="0" max="150" x-model="minKeys" />
+                </label>
+                <label>
+                    max keys: <span x-text="maxKeys"></span>
+                    <input type="range" min="0" max="150" x-model="maxKeys" />
+                </label>
+            </div>
+
+        </form>
+    </div>
+    <div>
+        <div role="group">
+            <fieldset>
+              <legend>Required Features:</legend>
+              <input type="checkbox" id="split" x-model='requiredFeatures.split' /><label for="split">Split</label>
+              <input type="checkbox" id="encoder" x-model='requiredFeatures.encoder' /><label for="encoder">Encoder</label>
+              <input type="checkbox" id="track" x-model='requiredFeatures.track' /><label for="track">Track(ball|point)</label>
+              <input type="checkbox" id="display" x-model='requiredFeatures.display' /><label for="display">Display</label>
+              <input type="checkbox" id="wireless" x-model='requiredFeatures.wireless' /><label for="wireless">Wireless</label>
+            </fieldset>
+        </div>
+        <div role="group">
+            <fieldset>
+              <legend>Considered Layouts:</legend>
+              <input type="checkbox" id="ergo" x-model='consideredLayouts.ergo' /><label for="ergo">Ergonomic</label>
+              <input type="checkbox" id="ortho" x-model='consideredLayouts.ortho' /><label for="ortho">Ortholinear</label>
+              <br />
+              <input type="checkbox" id="traditional" x-model='consideredLayouts.traditional' /><label for="traditional">Traditional</label>
+              <input type="checkbox" id="other" x-model='consideredLayouts.other' /><label for="other">Other</label>
+            </fieldset>
+        </div>
+    </div>
+    <div>
+        <fieldset>
+          <legend>Required Open Source:</legend>
+          <label>
+            <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" />
+                hardware
+          </label>
+        </fieldset>
+    </div>
+</div>
+
+<table class="striped">
+    <thead>
+        <tr>
+            <th scope="col"><span x-text="resultCount"></span> results</th>
+            <th scope="col">Name</th>
+            <th scope="col">Features</th>
+            <th scope="col">OpenHardware?</th>
+            <th scope="col">Layout</th>
+            <th scope="col">Website</th>
+            <th scope="col">MinKeys</th>
+            <th scope="col">MaxKeys</th>
+        </tr>
+    </thead>
+    <tbody>
+        <template x-for="kb in filteredData()">
+            <tr>
+                <td><img class="thumb" :src="kb.thumbUrl" :alt="kb.name" @click="$dispatch('lightbox', kb.imageUrl)"/></td>
+                <td ><a :href="kb.website" x-text="kb.name" target="_blank" ></a></td>
+                <td x-text="kb.features"></td>
+                <td x-show="kb.openHardware">✅</td>
+                <td x-show="!kb.openHardware">❌</td>
+                <td x-text="kb.layout"></td>
+                <td>
+                    <img alt="??" :src="kb.websiteShield">
+                </td>
+                <td x-text="kb.minKeys"></td>
+                <td x-text="kb.maxKeys"></td>
+            </tr>
+        </template>
+    </tbody>
+</table>
+
+
+<div class="lightbox" x-data="{lightboxOpen: false, imgSrc: ''}" x-show="lightboxOpen" x-transition
+@lightbox.window="lightboxOpen = true; imgSrc = $event.detail; console.log($event.detail)">
+<div class="lightbox-container">
+  <img :src="imgSrc" @click="lightboxOpen = false" @click.away="lightboxOpen = false">
+</div>
+</div>
+{{ end }}

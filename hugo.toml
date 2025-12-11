@@ -1,0 +1,29 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Split Keyboard Gallery'
+
+theme = "piccolo"
+
+[outputs]
+home = ["HTML"]
+
+[module]
+[[module.mounts]]
+source = 'assets'
+target = 'assets'
+
+[menus]
+  [[menus.main]]
+    name = 'Home'
+    pageRef = '/'
+    weight = 10
+
+  # [[menus.main]]
+  #   name = 'Posts'
+  #   pageRef = '/posts'
+  #   weight = 20
+
+  # [[menus.main]]
+  #   name = 'Tags'
+  #   pageRef = '/tags'
+  #   weight = 30
