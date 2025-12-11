@@ -47,12 +47,39 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('combined', () => ({
         open: false,
         nameFilter: '',
-        requiredFeatures: {
+        features: {
             split: true,
-            encoder: false,
-            track: false,
-            display: false,
-            wireless: false,
+            encoder: null,
+            track: null,
+            display: null,
+            wireless: null,
+        },
+        filterClass(filterVal) {
+            if (filterVal === true) {
+                return 'yes';
+            } else if (filterVal === false) {
+                return 'no';
+            } else {
+                return 'maybe';
+            }
+        },
+        toggleFeature(feature) {
+            var current = this.features[feature];
+            if (current === true) {
+                this.features[feature] = false;
+            } else if (current === false) {
+                this.features[feature] = null;
+            } else {
+                this.features[feature] = true;
+            }
+        },
+        toggleLayout(layout) {
+            var current = this.layouts[layout];
+            if (current === true) {
+                this.layouts[layout] = false;
+            } else {
+                this.layouts[layout] = true;
+            }
         },
         sortedBy: 'name',
         sortedDir: 1,
@@ -64,7 +91,7 @@ document.addEventListener('alpine:init', () => {
                 this.sortedDir = 1;
             }
         },
-        consideredLayouts: {
+        layouts: {
             ergo: true,
             dish: true,
             ortho: true,
@@ -89,13 +116,15 @@ document.addEventListener('alpine:init', () => {
             ret = ret.filter(keyboard => keyboard.maxKeys >= parseInt(this.minKeys));
             ret = ret.filter(keyboard => keyboard.minKeys <= parseInt(this.maxKeys));
 
-            for (const [feature, required] of Object.entries(this.requiredFeatures)) {
-                if (required) {
+            for (const [feature, flt] of Object.entries(this.features)) {
+                if (flt === true) {
                     ret = ret.filter(keyboard => keyboard.features.includes(feature));
+                } else if (flt === false) {
+                    ret = ret.filter(keyboard => !keyboard.features.includes(feature));
                 }
             }
 
-            for (const [layout, considered] of Object.entries(this.consideredLayouts)) {
+            for (const [layout, considered] of Object.entries(this.layouts)) {
                 if (! considered) {
                     ret = ret.filter(keyboard => keyboard.layout !== layout);
                 }

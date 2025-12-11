@@ -22,32 +22,28 @@
                     <input type="range" min="0" max="150" x-model="maxKeys" />
                 </label>
             </fieldset>
+
+            <fieldset class="bordered">
+              <legend>Layouts:</legend>
+                <button :class="filterClass(layouts.ergo)" @click="toggleLayout('ergo')">Ergonomic</button>
+                <button :class="filterClass(layouts.dish)" @click="toggleLayout('dish')">Dished</button>
+                <button :class="filterClass(layouts.ortho)" @click="toggleLayout('ortho')">Ortholinear</button>
+                <button :class="filterClass(layouts.traditional)" @click="toggleLayout('traditional')">Traditional</button>
+                <button :class="filterClass(layouts.other)" @click="toggleLayout('other')">Other</button>
+            </fieldset>
+
         </form>
     </div>
     <div>
-        <div role="group">
-            <fieldset class="bordered required">
-              <legend>Required Features:</legend>
-              <span><input type="checkbox" id="split" x-model='requiredFeatures.split' /><label for="split">Split</label></span>
-                <span><input type="checkbox" id="encoder" x-model='requiredFeatures.encoder' /><label for="encoder">Encoder</label></span>
-                <span><input type="checkbox" id="track" x-model='requiredFeatures.track' /><label for="track">Pointing Device</label></span>
-                <span><input type="checkbox" id="display" x-model='requiredFeatures.display' /><label for="display">Display</label></span>
-                <span><input type="checkbox" id="wireless" x-model='requiredFeatures.wireless' /><label for="wireless">Wireless</label></span>
-            </fieldset>
-        </div>
-        <div role="group">
-            <fieldset class="bordered considered">
-              <legend>Considered Layouts:</legend>
-                <span><input type="checkbox" id="ergo" x-model='consideredLayouts.ergo' /><label for="ergo">Ergonomic</label></span>
-                <span><input type="checkbox" id="dish" x-model='consideredLayouts.dish' /><label for="dish">Dished</label></span>
-                <span><input type="checkbox" id="ortho" x-model='consideredLayouts.ortho' /><label for="ortho">Ortholinear</label></span>
-                <span><input type="checkbox" id="traditional" x-model='consideredLayouts.traditional' /><label for="traditional">Traditional</label></span>
-                <span><input type="checkbox" id="other" x-model='consideredLayouts.other' /><label for="other">Other</label></span>
-            </fieldset>
-        </div>
-    </div>
-    <div>
-        <fieldset class="bordered required">
+        <fieldset class="bordered">
+            <legend>Features:</legend>
+            <button :class="filterClass(features.split)" @click="toggleFeature('split')">Split</button>
+            <button :class="filterClass(features.encoder)" @click="toggleFeature('encoder')">Encoder</button>
+            <button :class="filterClass(features.track)" @click="toggleFeature('track')">Track</button>
+            <button :class="filterClass(features.display)" @click="toggleFeature('display')">Display</button>
+            <button :class="filterClass(features.wireless)" @click="toggleFeature('wireless')">Wireless</button>
+        </fieldset>
+        <fieldset class="bordered">
           <legend>Required Open Source:</legend>
           <label>
             <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" />

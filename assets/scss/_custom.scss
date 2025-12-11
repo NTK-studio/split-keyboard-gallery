@@ -1,4 +1,3 @@
-
 @use "@picocss/pico/scss/colors/utilities";
 @use "@picocss/pico/scss/colors" as *;
 
@@ -88,3 +87,44 @@ fieldset.considered input[type="checkbox"]:not(:checked) + label, fieldset.consi
 footer {
   text-align: right;
 }
+
+button.yes {
+  background-color: $green-500;
+  border-color: $green-500;
+  // color: white;
+}
+
+button.yes:hover {
+  background-color: $green-450;
+  border-color: $green-450;
+  // color: white;
+}
+
+button.maybe {
+  background-color: var(--pico-secondary-background);
+  border-color: var(--pico-secondary-background);
+}
+
+button.maybe:hover {
+  background-color: var(--pico-secondary-hover-background);
+  border-color: var(--pico-secondary-hover-background);
+}
+
+button.no {
+  background-color: $red-550;
+  border-color: $red-550;
+}
+
+button.no:hover {
+  background-color: $red-500;
+  border-color: $red-500;
+}
+
+fieldset button {
+  margin: 2px;
+}
+
+fieldset.grid {
+    margin-bottom: 0;
+}
+
