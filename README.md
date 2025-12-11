@@ -11,6 +11,7 @@ See [about](https://splitkeyboard.gallery/) for more details.
 ## TODO
 
 - [x] gallery page
+- [ ] embed card
 - [ ] permalinks
 - [ ] separate links to: electronics, case, product page
 - [ ] toggle to make the content take full width
