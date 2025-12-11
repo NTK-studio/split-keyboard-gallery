@@ -15,7 +15,17 @@ target = 'assets'
 [menus]
   [[menus.main]]
     name = 'Table View'
-    pageRef = '/'
+    pageRef = '/index.html'
+    weight = 10
+
+  [[menus.main]]
+    name = 'About'
+    pageRef = '/about'
+    weight = 20
+
+  [[menus.right]]
+    name = 'Layout Comparison Tool'
+    URL = 'https://jhelvy.shinyapps.io/splitkbcompare/'
     weight = 10
 
   [[menus.right]]

@@ -1,6 +1,6 @@
 
 var features = ['split', 'encoder', 'track', 'display', 'wireless'];
-var layouts = ['ergo', 'ortho', 'traditional', 'other'];
+var layouts = ['ergo', 'dish', 'ortho', 'traditional', 'other'];
 
 
 var mapKeyboard = function(keyboard) {
@@ -66,6 +66,7 @@ document.addEventListener('alpine:init', () => {
         },
         consideredLayouts: {
             ergo: true,
+            dish: true,
             ortho: true,
             traditional: true,
             other: false,

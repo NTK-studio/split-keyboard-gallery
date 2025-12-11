@@ -84,3 +84,7 @@ fieldset.required input[type="checkbox"]:checked + label, fieldset.required labe
 fieldset.considered input[type="checkbox"]:not(:checked) + label, fieldset.considered label:has(input[type="checkbox"]:not(:checked)) {
   color: $red-450;
 }
+
+footer {
+  text-align: right;
+}

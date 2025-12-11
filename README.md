@@ -1,21 +1,29 @@
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fsplitkeyboard.gallery%2F)](https://splitkeyboard.gallery/)
+![GitHub License](https://img.shields.io/github/license/NTK-studio/split-keyboard-gallery?color=green)
+[ ![Discord](https://img.shields.io/discord/1435326750799433919?logo=discord&color=%235865F2)](https://discord.gg/myEkxF7rhV)
+
 # Split Keyboards
 
-This is an interactive gallery of split keyboards, visible at [Split Keyboards](https://aposymbiont.github.io/split-keyboards/).
+This is an interactive gallery of split (and other) keyboards, visible at https://splitkeyboard.gallery/ .
 
-See [about](https://aposymbiont.github.io/split-keyboards/about.html) for more details.
+See [about](https://splitkeyboard.gallery/) for more details.
 
 ## Contributions
 
 Issues and pull requests to correct mistakes or add missing keyboards are welcome.
 
-General guidelines for inclusion:
-* The keyboard should use mechanical switches,
-* Keyboards should be in two halves, or have a "wedge" in the middle to allow the wrists to lie in a more natural position,
-* The keyboard should be available for purchase, or a kit should be available for purchase,
-* Or, the source files for the PCB and case should be available for download.
-* When a keyboard is no longer available, it should be marked "unavailable" and therefore hidden by default.
-
 Minor variations on existing designs, created as a personal hobby board, are generally not worth including.
+
+### Adding a new keyboard
+
+Create a pull request with the following changes:
+
+1. Add a new row in the [all_keyboards.csv file](assets/data/all_keyboards.csv) with the keyboard details - the first row contains the column headers.
+  - make sure the content rows remain sorted alphabetically
+2. Add a photo of the keyboard to the [assets/images/keyboards/](assets/images/keyboards/) folder - make sure the name of the file is aligned with the `Image` column in the CSV file.
+  - The image should be reasonably big - hugo will resize it for thumbnails
+  - `.webp` won't work, use `.jpg` or `.png`
+3. Run hugo with `npm run dev` to check everything looks OK. If you don't have prerequisites installed, you can let the Github CI run and check the uploaded artifacts
 
 ### Classification
 
@@ -37,10 +45,6 @@ Keyboards are classified with filter tags, shown `like this` below:
 ### Number of keys
 The minimum and maximum number of keys supported by the keyboard.  For example, many traditional layouts support an additional key for ISO layout (next to Z), and the [ErgoDash](https://github.com/omkbd/ErgoDash) can be configured with 66-70 keys.
 
-At present, only the maximum number is used for the filter.
-
-*TODO: Number of rows*
-
 ### Features
 This is a list of features, which the user can either require, forbid, or not care about.
 
@@ -51,7 +55,7 @@ Rotary `encoder`
 : one or more knobs which can press keys, useful for volume up/down, page-up/page-down, etc.
 
 `track` track ball/point/pad
-: an integrated mouse (a laptop-style trackpoint, a trackpad or a larger trackball)
+: an integrated mouse (a laptop-style trackpoint, a trackpad or a larger trackball). This shows up as "Pointing Device" in the interface
 
 `display`
 : a display on the keyboard, which can show status (Caps Lock, current layer, macros etc)
@@ -80,9 +84,7 @@ Rotary `encoder`
 ### Website
 Typically the place to purchase it (if mass-produced or not open source), or the source/information site otherwise.  I've avoided linking to particular shops selling kits, as some boards have many suppliers.
 
-### Image
-In the `img/source` directory are some larger images.  They've been resized to a width of 640px for display on the web, in the `img/` directory.  I used `convert source/XXX.jpg -resize 640x XXX.jpg`.
 
-A functional, well-lit, top-down image with a neutral background is preferred if possible.  An artistic, angled photo with weird keycaps makes it more difficult to compare between boards.
+## License
 
-Choose an image like [Arch 36](img/Arch36.jpg), [Atreis](img/Atreis.jpg) and [UHK](img/Ultimatehackingkeyboard.jpg).
+From December 2025 onwards, this repository is licensed under `AGPL-3.0`. If you feel like your contributions prior to this date are misused, please get in touch.
