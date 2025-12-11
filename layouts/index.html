@@ -29,21 +29,20 @@
         <div role="group">
             <fieldset>
               <legend>Required Features:</legend>
-              <input type="checkbox" id="split" x-model='requiredFeatures.split' /><label for="split">Split</label>
-              <input type="checkbox" id="encoder" x-model='requiredFeatures.encoder' /><label for="encoder">Encoder</label>
-              <input type="checkbox" id="track" x-model='requiredFeatures.track' /><label for="track">Track(ball|point)</label>
-              <input type="checkbox" id="display" x-model='requiredFeatures.display' /><label for="display">Display</label>
-              <input type="checkbox" id="wireless" x-model='requiredFeatures.wireless' /><label for="wireless">Wireless</label>
+              <span><input type="checkbox" id="split" x-model='requiredFeatures.split' /><label for="split">Split</label></span>
+                <span><input type="checkbox" id="encoder" x-model='requiredFeatures.encoder' /><label for="encoder">Encoder</label></span>
+                <span><input type="checkbox" id="track" x-model='requiredFeatures.track' /><label for="track">Track(ball|point)</label></span>
+                <span><input type="checkbox" id="display" x-model='requiredFeatures.display' /><label for="display">Display</label></span>
+                <span><input type="checkbox" id="wireless" x-model='requiredFeatures.wireless' /><label for="wireless">Wireless</label></span>
             </fieldset>
         </div>
         <div role="group">
             <fieldset>
               <legend>Considered Layouts:</legend>
-              <input type="checkbox" id="ergo" x-model='consideredLayouts.ergo' /><label for="ergo">Ergonomic</label>
-              <input type="checkbox" id="ortho" x-model='consideredLayouts.ortho' /><label for="ortho">Ortholinear</label>
-              <br />
-              <input type="checkbox" id="traditional" x-model='consideredLayouts.traditional' /><label for="traditional">Traditional</label>
-              <input type="checkbox" id="other" x-model='consideredLayouts.other' /><label for="other">Other</label>
+                <span><input type="checkbox" id="ergo" x-model='consideredLayouts.ergo' /><label for="ergo">Ergonomic</label></span>
+                <span><input type="checkbox" id="ortho" x-model='consideredLayouts.ortho' /><label for="ortho">Ortholinear</label></span>
+                <span><input type="checkbox" id="traditional" x-model='consideredLayouts.traditional' /><label for="traditional">Traditional</label></span>
+                <span><input type="checkbox" id="other" x-model='consideredLayouts.other' /><label for="other">Other</label></span>
             </fieldset>
         </div>
     </div>
