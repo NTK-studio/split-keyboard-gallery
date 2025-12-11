@@ -10,6 +10,8 @@ var permalinkedKeys = [
     'availability',
     'sortedBy',
     'sortedDir',
+    'minKeys',
+    'maxKeys'
 ]
 
 var getPermalinkedKeys = function(source) {
