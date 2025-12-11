@@ -53,6 +53,8 @@ jobs:
 
       # - name: Setup Project
       #   run: npm run project-setup
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass && sudo snap alias dart-sass sass
 
       - name: Install npm dependencies
         run: npm install
