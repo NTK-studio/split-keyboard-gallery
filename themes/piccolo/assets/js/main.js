@@ -1,7 +1,18 @@
 
 var features = ['split', 'encoder', 'track', 'display', 'wireless'];
 var layouts = ['ergo', 'dish', 'ortho', 'traditional', 'other'];
+var availabilities = ['source', 'kit', 'assembled', 'massproduced', 'unavailable']
 
+var fixAvailabilities = function(options) {
+    // check if the array is empty
+    if (options.length === 0) {
+        return ['unavailable'];
+    } else if (options.includes('unavailable') && options.length > 1) {
+        return ['unavailable'];
+    } else {
+        return options;
+    }
+}
 
 var mapKeyboard = function(keyboard) {
     return {
@@ -15,6 +26,7 @@ var mapKeyboard = function(keyboard) {
         note: keyboard.Note,
         // TODO error out on unknown features
         features: keyboard.Features.split(' ').filter(feature => features.includes(feature)),
+        availabilities: fixAvailabilities(keyboard.Availability.split(' ').filter(av => availabilities.includes(av))),
         // layout: (keyboard.Layout in layouts) ? keyboard.Layout : 'other',
         layout: (layouts.includes(keyboard.Layout)) ? keyboard.Layout : 'other',
         imageUrl: keyboard.ImageUrl,
@@ -31,6 +43,9 @@ console.log(`Minimum keys across all keyboards: ${minKeys}`);
 var actualSortValue = function(keyboard, sortedBy, sortedDir) {
     if (sortedBy === 'featuresCount') {
         return keyboard.features.length;
+    }
+    if (sortedBy === 'availability') {
+        return keyboard.availabilities.filter(av => av != 'unavailable').length;
     }
     if (sortedBy === 'keys' && sortedDir > 0) {
         return keyboard.minKeys;
@@ -73,12 +88,36 @@ document.addEventListener('alpine:init', () => {
                 this.features[feature] = true;
             }
         },
+        layouts: {
+            ergo: true,
+            dish: true,
+            ortho: true,
+            traditional: true,
+            other: false,
+        },
         toggleLayout(layout) {
             var current = this.layouts[layout];
             if (current === true) {
                 this.layouts[layout] = false;
             } else {
                 this.layouts[layout] = true;
+            }
+        },
+        availability: {
+            source: null,
+            kit: null,
+            assembled: null,
+            massproduced: null,
+            unavailable: false,
+        },
+        toggleAvailability(option) {
+            var current = this.availability[option];
+            if (current === true) {
+                this.availability[option] = false;
+            } else if (current === false) {
+                this.availability[option] = null;
+            } else {
+                this.availability[option] = true;
             }
         },
         sortedBy: 'name',
@@ -90,13 +129,6 @@ document.addEventListener('alpine:init', () => {
                 this.sortedBy = field;
                 this.sortedDir = 1;
             }
-        },
-        layouts: {
-            ergo: true,
-            dish: true,
-            ortho: true,
-            traditional: true,
-            other: false,
         },
         openHardwareOnly: false,
         minKeys: minKeys,
@@ -115,6 +147,14 @@ document.addEventListener('alpine:init', () => {
 
             ret = ret.filter(keyboard => keyboard.maxKeys >= parseInt(this.minKeys));
             ret = ret.filter(keyboard => keyboard.minKeys <= parseInt(this.maxKeys));
+
+            for (const [av, flt] of Object.entries(this.availability)) {
+                if (flt === true) {
+                    ret = ret.filter(keyboard => keyboard.availabilities.includes(av));
+                } else if (flt === false) {
+                    ret = ret.filter(keyboard => !keyboard.availabilities.includes(av));
+                }
+            }
 
             for (const [feature, flt] of Object.entries(this.features)) {
                 if (flt === true) {

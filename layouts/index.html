@@ -22,19 +22,26 @@
                     <input type="range" min="0" max="150" x-model="maxKeys" />
                 </label>
             </fieldset>
-
             <fieldset class="bordered">
-              <legend>Layouts:</legend>
-                <button :class="filterClass(layouts.ergo)" @click="toggleLayout('ergo')">Ergonomic</button>
-                <button :class="filterClass(layouts.dish)" @click="toggleLayout('dish')">Dished</button>
-                <button :class="filterClass(layouts.ortho)" @click="toggleLayout('ortho')">Ortholinear</button>
-                <button :class="filterClass(layouts.traditional)" @click="toggleLayout('traditional')">Traditional</button>
-                <button :class="filterClass(layouts.other)" @click="toggleLayout('other')">Other</button>
+              <legend>Required Open Source:</legend>
+              <label>
+                <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" />
+                    hardware
+              </label>
             </fieldset>
+
 
         </form>
     </div>
     <div>
+        <fieldset class="bordered">
+          <legend>Layouts:</legend>
+            <button :class="filterClass(layouts.ergo)" @click="toggleLayout('ergo')">Ergonomic</button>
+            <button :class="filterClass(layouts.dish)" @click="toggleLayout('dish')">Dished</button>
+            <button :class="filterClass(layouts.ortho)" @click="toggleLayout('ortho')">Ortholinear</button>
+            <button :class="filterClass(layouts.traditional)" @click="toggleLayout('traditional')">Traditional</button>
+            <button :class="filterClass(layouts.other)" @click="toggleLayout('other')">Other</button>
+        </fieldset>
         <fieldset class="bordered">
             <legend>Features:</legend>
             <button :class="filterClass(features.split)" @click="toggleFeature('split')">Split</button>
@@ -44,11 +51,12 @@
             <button :class="filterClass(features.wireless)" @click="toggleFeature('wireless')">Wireless</button>
         </fieldset>
         <fieldset class="bordered">
-          <legend>Required Open Source:</legend>
-          <label>
-            <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" />
-                hardware
-          </label>
+            <legend>Availability:</legend>
+            <button :class="filterClass(availability.source)" @click="toggleAvailability('source')">Source</button>
+            <button :class="filterClass(availability.kit)" @click="toggleAvailability('kit')">Kit</button>
+            <button :class="filterClass(availability.assembled)" @click="toggleAvailability('assembled')">Assembled</button>
+            <button :class="filterClass(availability.massproduced)" @click="toggleAvailability('massproduced')">Mass Produced</button>
+            <button :class="filterClass(availability.unavailable)" @click="toggleAvailability('unavailable')">Unavailable</button>
         </fieldset>
     </div>
 </div>
@@ -64,6 +72,7 @@
                 <th scope="col">Layout {{ partial "sort-icon.html" "layout" }}</th>
                 <th scope="col">Keys{{ partial "sort-icon.html" "keys" }}</th>
                 <th scope="col">Features {{ partial "sort-icon.html" "featuresCount" }}</th>
+                <th scope="col">Availability{{ partial "sort-icon.html" "availability" }}</th>
                 <th scope="col">GitHub?</th>
                 <!-- <th scope="col">Website</th> -->
             </tr>
@@ -76,6 +85,7 @@
                     <td x-text="kb.layout"></td>
                     <td x-text="kb.keysRange"></td>
                     <td x-text="`${kb.features.join(', ')}`"></td>
+                    <td x-text="`${kb.availabilities.join(', ')}`"></td>
                     <td :class="kb.openHardware ? 'good' : 'bad'">
                         <i x-show="kb.openHardware" class="fa-solid fa-check good"></i>
                         <i x-show="!kb.openHardware" class="fa-solid fa-xmark bad"></i>
