@@ -3,6 +3,23 @@ var features = ['split', 'encoder', 'track', 'display', 'wireless'];
 var layouts = ['ergo', 'dish', 'ortho', 'traditional', 'other'];
 var availabilities = ['source', 'kit', 'assembled', 'massproduced', 'unavailable']
 
+var permalinkedKeys = [
+    'nameFilter',
+    'features',
+    'layouts',
+    'availability',
+    'sortedBy',
+    'sortedDir',
+]
+
+var getPermalinkedKeys = function(source) {
+    var obj = {};
+    for (const key of permalinkedKeys) {
+        obj[key] = source[key];
+    }
+    return obj;
+}
+
 var fixAvailabilities = function(options) {
     // check if the array is empty
     if (options.length === 0) {
@@ -13,6 +30,22 @@ var fixAvailabilities = function(options) {
         return options;
     }
 }
+
+var readPermalink = function() {
+    var searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has("permalink")) {
+        var encoded = searchParams.get("permalink");
+        if (typeof encoded === 'string' && encoded.length > 0) {
+            var decoded = atob(encoded);
+            parsed = JSON.parse(decoded);
+            if (typeof parsed === 'object' && parsed !== null) {
+                return getPermalinkedKeys(parsed);
+            }
+        }
+    }
+    return {}
+}
+
 
 var mapKeyboard = function(keyboard) {
     return {
@@ -39,7 +72,7 @@ var keyboardData = window.sourceKeyboardData.map(mapKeyboard);
 var minKeys = Math.min(...keyboardData.map(kb => kb.minKeys));
 var maxKeys = Math.max(...keyboardData.map(kb => kb.maxKeys));
 
-console.log(`Minimum keys across all keyboards: ${minKeys}`);
+// console.log(`Minimum keys across all keyboards: ${minKeys}`);
 
 var actualSortValue = function(keyboard, sortedBy, sortedDir) {
     if (sortedBy === 'featuresCount') {
@@ -59,9 +92,12 @@ var actualSortValue = function(keyboard, sortedBy, sortedDir) {
 
 
 document.addEventListener('alpine:init', () => {
-    console.log('Alpine is initializing...');
-    Alpine.data('combined', () => ({
-        open: false,
+    // console.log('Alpine is initializing...');
+
+    var permalinkData = readPermalink();
+    console.log('Permalink data:', permalinkData);
+
+    Alpine.data('combined', () => (Object.assign({
         nameFilter: '',
         features: {
             split: true,
@@ -138,6 +174,17 @@ document.addEventListener('alpine:init', () => {
         theme() {
             return this.night ? '🌒' : '🌤';
         },
+        permalink(dataProxy) {
+            var obj = getPermalinkedKeys(dataProxy);
+
+            // console.log(JSON.stringify(obj))
+            var encoded = btoa(JSON.stringify(obj))
+            // console.log(encoded)
+            var searchParams = new URLSearchParams(window.location.search);
+            searchParams.set("permalink", encoded);
+            var basePath = window.location.toString().replace(window.location.search, "")
+            return `${basePath}?${searchParams.toString()}`;
+        },
         keyboardData: keyboardData,
         filteredData() {
             var ret = this.keyboardData;
@@ -198,8 +245,5 @@ document.addEventListener('alpine:init', () => {
         resultCount() {
             return this.filteredData().length;
         },
-        toggle() {
-            this.open = ! this.open
-        },
-    }))
+    }, permalinkData)))
 })

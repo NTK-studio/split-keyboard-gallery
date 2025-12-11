@@ -12,11 +12,10 @@ See [about](https://splitkeyboard.gallery/) for more details.
 
 - [x] gallery page
 - [x] embed card
-- [ ] permalinks
+- [x] permalinks
 - [ ] separate links to: electronics, case, product page
 - [ ] toggle to make the content take full width
 - [ ] find missing images
-- [ ] plausible
 
 ## Contributions
 

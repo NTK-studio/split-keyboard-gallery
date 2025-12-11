@@ -8,6 +8,7 @@ This is an interactive gallery of split (and other) keyboards, based on an [earl
 - added light/dark mode toggle
 - added table view in addition to the gallery view
 - added sorting by properties
+- **added permalinks** for filter results
 - added filtering by name
 - image resizing and SASS compilation on build using HUGO
 - easy to develop frontend thanks to [Alpine.js](https://alpinejs.dev/) and [Pico CSS](https://picocss.com/)

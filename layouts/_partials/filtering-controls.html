@@ -28,10 +28,6 @@
             <!--   </label> -->
             <!-- </fieldset> -->
 
-
-        </form>
-    </div>
-    <div>
         <fieldset class="bordered">
           <legend>Layouts:</legend>
             <button :class="filterClass(layouts.ergo)" @click="toggleLayout('ergo')">Ergonomic</button>
@@ -40,6 +36,10 @@
             <button :class="filterClass(layouts.traditional)" @click="toggleLayout('traditional')">Traditional</button>
             <button :class="filterClass(layouts.other)" @click="toggleLayout('other')">Other</button>
         </fieldset>
+
+        </form>
+    </div>
+    <div>
         <fieldset class="bordered">
             <legend>Features:</legend>
             <button :class="filterClass(features.split)" @click="toggleFeature('split')">Split</button>
@@ -56,5 +56,9 @@
             <button :class="filterClass(availability.massproduced)" @click="toggleAvailability('massproduced')">Mass Produced</button>
             <button :class="filterClass(availability.unavailable)" @click="toggleAvailability('unavailable')">Unavailable</button>
         </fieldset>
+
+            <fieldset class="bordered">
+                <a data-placement="right" data-tooltip="Copy this link's url for a permalink to your filters!" class="permalink" :href="permalink($data)"><i class="fa-solid fa-link"></i>&nbsp;permalink for these filters</a>
+            </fieldset>
     </div>
 </div>
