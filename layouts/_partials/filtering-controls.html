@@ -20,13 +20,7 @@
                     <input type="range" min="0" max="150" x-model="maxKeys" />
                 </label>
             </fieldset>
-            <!-- <fieldset class="bordered"> -->
-            <!--   <legend>Required Open Source:</legend> -->
-            <!--   <label> -->
-            <!--     <input name="openHardware" type="checkbox" role="switch" x-model="openHardwareOnly" /> -->
-            <!--         hardware -->
-            <!--   </label> -->
-            <!-- </fieldset> -->
+
 
         <fieldset class="bordered">
           <legend>Layouts:</legend>
@@ -36,6 +30,14 @@
             <button :class="filterClass(layouts.traditional)" @click="toggleLayout('traditional')">Traditional</button>
             <button :class="filterClass(layouts.other)" @click="toggleLayout('other')">Other</button>
         </fieldset>
+
+            <fieldset class="bordered">
+              <!-- <legend>Required Open Source:</legend> -->
+              <label>
+                <input type="checkbox" role="switch" x-model="sourcePageAvailable" />
+                    Only with dedicated source page?
+              </label>
+            </fieldset>
 
         </form>
     </div>
@@ -49,6 +51,7 @@
             >Track</button>
             <button :class="filterClass(features.display)" @click="toggleFeature('display')">Display</button>
             <button :class="filterClass(features.wireless)" @click="toggleFeature('wireless')">Wireless</button>
+            <button :class="filterClass(features.handwired)" @click="toggleFeature('handwired')">Handwired</button>
         </fieldset>
         <fieldset class="bordered">
             <legend>Availability:</legend>

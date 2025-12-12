@@ -9,6 +9,8 @@ This is an interactive gallery of split (and other) keyboards, based on an [earl
 - added full width / default width content toggle
 - added table view in addition to the gallery view
 - added sorting by properties
+- added the `handwired` "feature"
+- separated pages into "product" and "source" links
 - **added permalinks** for filter results
 - added filtering by name
 - image resizing and SASS compilation on build using HUGO

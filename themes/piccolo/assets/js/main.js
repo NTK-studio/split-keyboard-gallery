@@ -1,5 +1,5 @@
 
-var features = ['split', 'encoder', 'track', 'display', 'wireless'];
+var features = ['split', 'encoder', 'track', 'display', 'wireless', 'handwired'];
 var layouts = ['ergo', 'dish', 'ortho', 'traditional', 'other'];
 var availabilities = ['source', 'kit', 'assembled', 'massproduced', 'unavailable']
 
@@ -11,8 +11,21 @@ var permalinkedKeys = [
     'sortedBy',
     'sortedDir',
     'minKeys',
-    'maxKeys'
+    'maxKeys',
+    'sourcePageAvailable'
 ]
+
+var getDomain = function(maybeUrl) {
+    if (typeof maybeUrl !== 'string' || maybeUrl.length < 3) {
+        return '';
+    }
+    try {
+        var url = new URL(maybeUrl);
+        return url.hostname.replace('www.', '');
+    } catch (e) {
+        return '';
+    }
+}
 
 var getPermalinkedKeys = function(source) {
     var obj = {};
@@ -62,9 +75,13 @@ var mapKeyboard = function(keyboard) {
         minKeys: parseInt(keyboard.MinKeys),
         maxKeys: parseInt(keyboard.MaxKeys),
         keysRange: (keyboard.MinKeys === keyboard.MaxKeys) ? `${keyboard.MinKeys}` : `${keyboard.MinKeys} - ${keyboard.MaxKeys}`,
-        website: keyboard.Website,
+        productWebsite: keyboard.ProductWebsite,
+        productWebsiteDomain: getDomain(keyboard.ProductWebsite),
+        sourceWebsite: keyboard.SourceWebsite,
+        sourceWebsiteDomain: getDomain(keyboard.SourceWebsite),
+        website: keyboard.ProductWebsite || keyboard.sourceWebsite,
         websiteShield: `https://img.shields.io/website?url=${encodeURIComponent(keyboard.Website)}`,
-        openHardware: keyboard.Website.startsWith('https://github.com'),
+        sourcePageAvailable: ((keyboard.SourceWebsite || '').length > 0),
         note: keyboard.Note,
         // TODO error out on unknown features
         features: keyboard.Features.split(' ').filter(feature => features.includes(feature)),
@@ -114,6 +131,7 @@ document.addEventListener('alpine:init', () => {
             track: null,
             display: null,
             wireless: null,
+            handwired: null,
         },
         filterClass(filterVal) {
             if (filterVal === true) {
@@ -176,7 +194,7 @@ document.addEventListener('alpine:init', () => {
                 this.sortedDir = 1;
             }
         },
-        openHardwareOnly: false,
+        sourcePageAvailable: false,
         minKeys: minKeys,
         maxKeys: maxKeys,
         night: Alpine.$persist(true),
@@ -200,7 +218,9 @@ document.addEventListener('alpine:init', () => {
             var ret = this.keyboardData;
 
             if (this.nameFilter !== '') {
-                ret = ret.filter(keyboard => keyboard.name.toLowerCase().includes(this.nameFilter.toLowerCase()));
+                needle = this.nameFilter.toLowerCase()
+                ret = ret.filter(keyboard => keyboard.name.toLowerCase().includes(needle)
+                    || keyboard.productWebsiteDomain.toLowerCase().includes(needle));
             }
 
             ret = ret.filter(keyboard => keyboard.maxKeys >= parseInt(this.minKeys));
@@ -228,8 +248,8 @@ document.addEventListener('alpine:init', () => {
                 }
             }
 
-            if (this.openHardwareOnly) {
-                ret = ret.filter(keyboard => keyboard.openHardware);
+            if (this.sourcePageAvailable) {
+                ret = ret.filter(keyboard => keyboard.sourcePageAvailable);
             }
 
             ret = ret.sort((a, b) => {
