@@ -128,8 +128,6 @@ fieldset.grid {
     margin-bottom: 0;
 }
 
-
-
 .gallery_item {
     // move items to the top
     vertical-align: top;
@@ -162,4 +160,9 @@ fieldset.grid {
 
 a.permalink {
     font-weight: bold;
+}
+
+main.container-flex {
+    padding-left: 15px;
+    padding-right: 15px;
 }

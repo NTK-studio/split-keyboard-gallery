@@ -5,8 +5,14 @@
   </ul>
   <ul>
     <li>
+        <input id="full_width" type="checkbox" role="switch" x-model="contentFullWidth" />
+        <label for="full_width">
+            <i x-show="!contentFullWidth" class="fa-solid fa-down-left-and-up-right-to-center"></i>
+            <i x-show="contentFullWidth" class="fa-solid fa-up-right-and-down-left-from-center"></i>
+        </label>
+    </li>
+    <li>
         <input id="night_mode" type="checkbox" role="switch" x-model="night" />
-
         <label for="night_mode">
             <i x-show="night" class="fa-solid fa-moon"></i>
             <i x-show="!night" class="fa-solid fa-sun"></i>

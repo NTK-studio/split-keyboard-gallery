@@ -180,6 +180,7 @@ document.addEventListener('alpine:init', () => {
         minKeys: minKeys,
         maxKeys: maxKeys,
         night: Alpine.$persist(true),
+        contentFullWidth: Alpine.$persist(false),
         theme() {
             return this.night ? '🌒' : '🌤';
         },

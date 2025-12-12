@@ -6,6 +6,7 @@ This is an interactive gallery of split (and other) keyboards, based on an [earl
 
 - ported to [HUGO](https://gohugo.io/)
 - added light/dark mode toggle
+- added full width / default width content toggle
 - added table view in addition to the gallery view
 - added sorting by properties
 - **added permalinks** for filter results

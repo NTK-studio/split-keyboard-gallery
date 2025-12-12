@@ -1,6 +1,6 @@
 baseURL = 'https://splitkeyboard.gallery/'
 languageCode = 'en-us'
-title = 'Split Keyboard Gallery'
+title = '(not just) Split Keyboard Gallery'
 
 theme = "piccolo"
 
