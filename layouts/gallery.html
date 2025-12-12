@@ -18,11 +18,6 @@
     </template>
 </div>
 
+{{ partial "lightbox.html" . }}
 
-<div class="lightbox" x-data="{lightboxOpen: false, imgSrc: ''}" x-show="lightboxOpen" x-transition
-@lightbox.window="lightboxOpen = true; imgSrc = $event.detail; console.log($event.detail)">
-<div class="lightbox-container">
-  <img :src="imgSrc" @click="lightboxOpen = false" @click.away="lightboxOpen = false">
-</div>
-</div>
 {{ end }}

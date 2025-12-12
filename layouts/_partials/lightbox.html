@@ -1,0 +1,6 @@
+<div class="lightbox" x-data="{lightboxOpen: false, imgSrc: ''}" x-show="lightboxOpen" x-transition
+@lightbox.window="imgSrc = $event.detail; lightboxOpen = true; console.log($event.detail)">
+<div class="lightbox-container">
+        <img :src="imgSrc" @click="lightboxOpen = false" @click.away="lightboxOpen = false" @keydown.escape.window="lightboxOpen = false" />
+</div>
+</div>
